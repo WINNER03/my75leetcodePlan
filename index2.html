@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algorithm Playground</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        .function-block {
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input, textarea, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        pre {
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Algorithm Playground</h1>
+    <div class="container">
+        <div class="function-block">
+            <h2>Two Sum</h2>
+            <label for="twoSumInput">Enter array and target (e.g., [2,7,11,15], 9):</label>
+            <input type="text" id="twoSumInput">
+            <button onclick="runTwoSum()">Run</button>
+            <pre id="twoSumResult"></pre>
+        </div>
+        <div class="function-block">
+            <h2>Contains Duplicate</h2>
+            <label for="containsDuplicateInput">Enter array (e.g., [1,2,3,1]):</label>
+            <input type="text" id="containsDuplicateInput">
+            <button onclick="runContainsDuplicate()">Run</button>
+            <pre id="containsDuplicateResult"></pre>
+        </div>
+        <div class="function-block">
+            <h2>Maximize Stock Profits</h2>
+            <label for="maxProfitInput">Enter prices array (e.g., [7,1,5,3,6,4]):</label>
+            <input type="text" id="maxProfitInput">
+            <button onclick="runMaxProfit()">Run</button>
+            <pre id="maxProfitResult"></pre>
+        </div>
+        <div class="function-block">
+            <h2>Check if Anagram</h2>
+            <label for="isAnagramInput">Enter two strings (e.g., "anagram", "nagaram"):</label>
+            <input type="text" id="isAnagramInput">
+            <button onclick="runIsAnagram()">Run</button>
+            <pre id="isAnagramResult"></pre>
+        </div>
+        <div class="function-block">
+            <h2>Balanced Parentheses</h2>
+            <label for="isValidInput">Enter string (e.g., "{[()]}"):</label>
+            <input type="text" id="isValidInput">
+            <button onclick="runIsValid()">Run</button>
+            <pre id="isValidResult"></pre>
+        </div>
+        <div class="function-block">
+            <h2>Find Maximum Subarray Sum</h2>
+            <label for="maxSubArrayInput">Enter array (e.g., [-2,1,-3,4,-1,2,1,-5,4]):</label>
+            <input type="text" id="maxSubArrayInput">
+            <button onclick="runMaxSubArray()">Run</button>
+            <pre id="maxSubArrayResult"></pre>
+        </div>
+        <div class="function-block">
+            <h2>Array Product Without Self</h2>
+            <label for="productExceptSelfInput">Enter array (e.g., [1,2,3,4]):</label>
+            <input type="text" id="productExceptSelfInput">
+            <button onclick="runProductExceptSelf()">Run</button>
+            <pre id="productExceptSelfResult"></pre>
+        </div>
+        <div class="function-block">
+            <h2>Three Number Sum</h2>
+            <label for="threeSumInput">Enter array (e.g., [-1,0,1,2,-1,-4]):</label>
+            <input type="text" id="threeSumInput">
+            <button onclick="runThreeSum()">Run</button>
+            <pre id="threeSumResult"></pre>
+        </div>
+        <div class="function-block">
+            <h2>Merge Overlapping Intervals</h2>
+            <label for="mergeInput">Enter intervals (e.g., [[1,3],[2,6],[8,10],[15,18]]):</label>
+            <input type="text" id="mergeInput">
+            <button onclick="runMerge()">Run</button>
+            <pre id="mergeResult"></pre>
+        </div>
+        <div class="function-block">
+            <h2>Group Words by Anagrams</h2>
+            <label for="groupAnagramsInput">Enter array of words (e.g., ["eat","tea","tan","ate","nat","bat"]):</label>
+            <input type="text" id="groupAnagramsInput">
+            <button onclick="runGroupAnagrams()">Run</button>
+            <pre id="groupAnagramsResult"></pre>
+        </div>
+    </div>
+    <script>
+        function parseInput(input) {
+            try {
+                return JSON.parse(input);
+            } catch (e) {
+                alert("Invalid input format. Use valid JSON.");
+                return null;
+            }
+        }
+
+        function twoSum(nums, target) {
+            let map = new Map();
+            for (let i = 0; i < nums.length; i++) {
+                let complement = target - nums[i];
+                if (map.has(complement)) {
+                    return [map.get(complement), i];
+                }
+                map.set(nums[i], i);
+            }
+            return [];
+        }
+
+        function containsDuplicate(nums) {
+            let set = new Set();
+            for (let num of nums) {
+                if (set.has(num)) {
+                    return true;
+                }
+                set.add(num);
+            }
+            return false;
+        }
+
+        function maxProfit(prices) {
+            let minPrice = Infinity;
+            let maxProfit = 0;
+            for (let price of prices) {
+                minPrice = Math.min(minPrice, price);
+                maxProfit = Math.max(maxProfit, price - minPrice);
+            }
+            return maxProfit;
+        }
+
+        function isAnagram(s, t) {
+            if (s.length !== t.length) return false;
+            let map = new Map();
+            for (let char of s) map.set(char, (map.get(char) || 0) + 1);
+            for (let char of t) {
+                if (!map.has(char) || map.get(char) === 0) return false;
+                map.set(char, map.get(char) - 1);
+            }
+            return true;
+        }
+
+        function isValid(s) {
+            let stack = [];
+            let map = { '(': ')', '{': '}', '[': ']' };
+            for (let char of s) {
+                if (map[char]) stack.push(char);
+                else if (map[stack.pop()] !== char) return false;
+            }
+            return stack.length === 0;
+        }
+
+        function maxSubArray(nums) {
+            let maxSum = nums[0], currentSum = nums[0];
+            for (let i = 1; i < nums.length; i++) {
+                currentSum = Math.max(nums[i], currentSum + nums[i]);
+                maxSum = Math.max(maxSum, currentSum);
+            }
+            return maxSum;
+        }
+
+        function productExceptSelf(nums) {
+            let result = [], left = 1;
+            for (let i = 0; i < nums.length; i++) {
+                result[i] = left;
+                left *= nums[i];
+            }
+            let right = 1;
+            for (let i = nums.length - 1; i >= 0; i--) {
+                result[i] *= right;
+                right *= nums[i];
+            }
+            return result;
+        }
+
+        function threeSum(nums) {
+            nums.sort((a, b) => a - b);
+            let result = [];
+            for (let i = 0; i < nums.length - 2; i++) {
+                if (i > 0 && nums[i] === nums[i - 1]) continue;
+                let left = i + 1, right = nums.length - 1;
+                while (left < right) {
+                    let sum = nums[i] + nums[left] + nums[right];
+                    if (sum === 0) {
+                        result.push([nums[i], nums[left], nums[right]]);
+                        while (nums[left] === nums[left + 1]) left++;
+                        while (nums[right] === nums[right - 1]) right--;
+                        left++; right--;
+                    } else if (sum < 0) left++;
+                    else right--;
+                }
+            }
+            return result;
+        }
+
+        function merge(intervals) {
+            intervals.sort((a, b) => a[0] - b[0]);
+            let result = [];
+            for (let interval of intervals) {
+                if (result.length === 0 || result[result.length - 1][1] < interval[0]) {
+                    result.push(interval);
+                } else {
+                    result[result.length - 1][1] = Math.max(result[result.length - 1][1], interval[1]);
+                }
+            }
+            return result;
+        }
+
+        function groupAnagrams(strs) {
+            let map = {};
+            for (let str of strs) {
+                let sorted = str.split('').sort().join('');
+                if (!map[sorted]) map[sorted] = [];
+                map[sorted].push(str);
+            }
+            return Object.values(map);
+        }
+
+        function runTwoSum() {
+            const input = parseInput(`[${document.getElementById("twoSumInput").value}]`);
+            if (input) document.getElementById("twoSumResult").textContent = JSON.stringify(twoSum(...input));
+        }
+
+        function runContainsDuplicate() {
+            const input = parseInput(document.getElementById("containsDuplicateInput").value);
+            if (input) document.getElementById("containsDuplicateResult").textContent = containsDuplicate(input);
+        }
+
+        function runMaxProfit() {
+            const input = parseInput(document.getElementById("maxProfitInput").value);
+            if (input) document.getElementById("maxProfitResult").textContent = maxProfit(input);
+        }
+
+        function runIsAnagram() {
+            const input = parseInput(`[${document.getElementById("isAnagramInput").value}]`);
+            if (input) document.getElementById("isAnagramResult").textContent = isAnagram(...input);
+        }
+
+        function runIsValid() {
+            const input = document.getElementById("isValidInput").value;
+            document.getElementById("isValidResult").textContent = isValid(input);
+        }
+
+        function runMaxSubArray() {
+            const input = parseInput(document.getElementById("maxSubArrayInput").value);
+            if (input) document.getElementById("maxSubArrayResult").textContent = maxSubArray(input);
+        }
+
+        function runProductExceptSelf() {
+            const input = parseInput(document.getElementById("productExceptSelfInput").value);
+            if (input) document.getElementById("productExceptSelfResult").textContent = JSON.stringify(productExceptSelf(input));
+        }
+
+        function runThreeSum() {
+            const input = parseInput(document.getElementById("threeSumInput").value);
+            if (input) document.getElementById("threeSumResult").textContent = JSON.stringify(threeSum(input));
+        }
+
+        function runMerge() {
+            const input = parseInput(document.getElementById("mergeInput").value);
+            if (input) document.getElementById("mergeResult").textContent = JSON.stringify(merge(input));
+        }
+
+        function runGroupAnagrams() {
+            const input = parseInput(document.getElementById("groupAnagramsInput").value);
+            if (input) document.getElementById("groupAnagramsResult").textContent = JSON.stringify(groupAnagrams(input));
+        }
+    </script>
+</body>
+</html>

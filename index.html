@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fetch User Data with API</title>
+  <style>
+    /* CSS Styles */
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f5f5f5;
+    }
+    
+    .container {
+      text-align: center;
+      max-width: 400px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    #userList {
+      margin-top: 20px;
+      text-align: left;
+    }
+
+    .user {
+      padding: 10px;
+      border: 1px solid #ccc;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      background-color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HTML Structure -->
+  <div class="container">
+    <h1>Fetch User Data</h1>
+    <button id="fetchButton">Fetch Users</button>
+    <div id="userList"></div>
+  </div>
+
+  <script>
+    // JavaScript Code
+
+    // Select the button and userList div
+    const fetchButton = document.getElementById('fetchButton');
+    const userList = document.getElementById('userList');
+
+    // Event listener for the button
+    fetchButton.addEventListener('click', () => {
+      fetchUsers();
+    });
+
+    // Function to fetch users from the API
+    function fetchUsers() {
+      // Clear the existing user list
+      userList.innerHTML = '';
+
+      // Fetch data from JSONPlaceholder API
+      fetch('https://jsonplaceholder.typicode.com/users')
+        .then(response => response.json())
+        .then(data => {
+          // Loop through the users and display each one
+          data.forEach(user => {
+            const userDiv = document.createElement('div');
+            userDiv.classList.add('user');
+            
+            userDiv.innerHTML = `
+              <h3>${user.name}</h3>
+              <p><strong>Email:</strong> ${user.email}</p>
+              <p><strong>City:</strong> ${user.address.city}</p>
+            `;
+            
+            userList.appendChild(userDiv);
+          });
+        })
+        .catch(error => {
+          userList.innerHTML = `<p style="color: red;">Failed to fetch data.</p>`;
+          console.error('Error fetching data:', error);
+        });
+    }
+  </script>
+
+</body>
+</html>

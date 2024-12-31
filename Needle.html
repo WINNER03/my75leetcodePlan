@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TSA Dashboard</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      height: 100vh;
+    }
+    .sidebar {
+      background-color: #2d3e50;
+      color: white;
+      width: 250px;
+      display: flex;
+      flex-direction: column;
+      padding: 20px 0;
+    }
+    .sidebar a {
+      padding: 15px 20px;
+      text-decoration: none;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: background-color 0.3s;
+    }
+    .sidebar a:hover {
+      background-color: #1a2a38;
+    }
+    .sidebar a.active {
+      background-color: #1a2a38;
+      font-weight: bold;
+    }
+    .main-content {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .header {
+      background-color: #f5f5f5;
+      padding: 15px 20px;
+      font-size: 18px;
+      border-bottom: 1px solid #ddd;
+    }
+    .tabs {
+      display: flex;
+      background-color: #f5f5f5;
+      padding: 10px 20px;
+      gap: 20px;
+      border-bottom: 1px solid #ddd;
+    }
+    .tabs button {
+      border: none;
+      background: none;
+      font-size: 16px;
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .tabs button:hover {
+      background-color: #ddd;
+    }
+    .tabs button.active {
+      border-bottom: 2px solid #0078d4;
+    }
+    .tab-content {
+      padding: 20px;
+      flex-grow: 1;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    table, th, td {
+      border: 1px solid #ddd;
+    }
+    th, td {
+      padding: 15px;
+      text-align: left;
+    }
+    th {
+      background-color: #f5f5f5;
+    }
+    .approved {
+      color: green;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <a href="#" class="active">Dashboard</a>
+    <a href="#">Course</a>
+    <a href="#">Schedule</a>
+    <a href="#">Events</a>
+    <a href="#">Aircraft List</a>
+    <a href="#">Announcements</a>
+    <a href="#">Safety Reports</a>
+    <a href="#">My Profile</a>
+  </div>
+  <div class="main-content">
+    <div class="header">TSA Dashboard</div>
+    <div class="tabs">
+      <button class="active" onclick="showTab('tsa')">TSA</button>
+      <button onclick="showTab('endorsement')">Endorsement</button>
+      <button onclick="showTab('rental')">Rental Agreement</button>
+    </div>
+    <div class="tab-content">
+      <div id="tsa" class="tab-pane">
+        <p>TSA requires proof of citizenship to be verified prior to flight training...</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Document Name</th>
+              <th>Status</th>
+              <th>Citizenship Type</th>
+              <th>Approval Date</th>
+              <th>Approval By</th>
+              <th>Documents</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Proof of Citizenship</td>
+              <td class="approved">Approved</td>
+              <td>US Citizen</td>
+              <td>Nov 27, 2024</td>
+              <td>Thomas Echeverria</td>
+              <td><button onclick="viewDocument()">View</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div id="endorsement" class="tab-pane" style="display: none;">
+        <p>Endorsement section is under construction.</p>
+      </div>
+      <div id="rental" class="tab-pane" style="display: none;">
+        <p>Rental Agreement section is under construction.</p>
+      </div>
+    </div>
+  </div>
+  <script>
+    function showTab(tabId) {
+      document.querySelectorAll('.tab-pane').forEach(pane => pane.style.display = 'none');
+      document.querySelectorAll('.tabs button').forEach(button => button.classList.remove('active'));
+      document.getElementById(tabId).style.display = 'block';
+      event.target.classList.add('active');
+    }
+    function viewDocument() {
+      alert('Viewing document...');
+    }
+  </script>
+</body>
+</html>
